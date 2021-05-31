@@ -1,0 +1,36 @@
+from selenium import webdriver
+import time
+import pandas as pd
+#ler base de dados
+x = pd.read_excel(r'C:\Users\Operacional\Desktop\dados.xlsx')
+#solicita qual dados devem ser lidos
+nome = input('Digite o nome do motorista: ')
+# Entrar no site do ddjj
+driver = webdriver.Chrome(executable_path=r'./chromedriver.exe')
+driver.get('https://ddjj.migraciones.gob.ar/app/home.php')
+# Localizar o primeiro campo
+# preecher primeiro campo
+driver.find_element_by_xpath('//*[@id="pais_emisor"]').send_keys('Brasil')
+#segundo campo
+#preencher
+driver.find_element_by_xpath('//*[@id="documento"]').send_keys(x[nome][1])
+#terceiro campo
+#preencher
+driver.find_element_by_xpath('//*[@id="combo_sexo"]').send_keys('masc')
+#quarto campo
+#preencher
+driver.find_element_by_xpath('//*[@id="fecha_emision"]').send_keys(x[nome][2])
+#quinto campo
+#preencher
+driver.find_element_by_xpath('//*[@id="mail"]').send_keys('laurozeki3@gmail.com')
+#sexto campo
+driver.find_element_by_xpath('//*[@id="mail_2"]').send_keys('laurozeki3@gmail.com')
+#selecionar caixa
+driver.find_element_by_xpath('//*[@id="aceptar_condiciones"]').click()
+#confirmar
+#driver.find_element_by_xpath('//*[@id="boton_ingresar"]').click()
+
+#delay
+time.sleep(15)
+#fechar janela
+driver.quit()
